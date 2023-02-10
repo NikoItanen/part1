@@ -1,25 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
 
-function App() {
+
+
+const Header = (props) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  <div>
+    <h1>{props.text}</h1>
+  </div>
+  )
 }
 
-export default App;
+const Button = ({handleClick, text}) => (
+  <button onClick={handleClick}>{text}</button>
+)
+
+
+const Stats = (props) => {
+  return (
+    <div>
+          <p>{props.type}: {props.value}</p>
+    </div>
+  )
+}
+
+
+const App = () => {
+  // tallenna napit omaan tilaansa
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  const handleGoodClick = () => {
+    console.log('good')
+    setGood(good + 1)
+  }
+  const handleNeutralClick = () => {
+    console.log('neutral')
+    setNeutral(neutral + 1)
+  }
+  const handleBadClick = () => {
+    console.log('bad')
+    setBad(bad + 1)
+  }
+
+
+  return (
+    <div>
+      <Header text={'Give Feedback'} />
+      <Button handleClick={handleGoodClick} text='Good'/>
+      <Button handleClick={handleNeutralClick} text='Neutral'/>
+      <Button handleClick={handleBadClick} text='Bad'/>
+      <h2>Statistics</h2>
+      <Stats type='Good' value={good} />
+      <Stats type='Neutral' value={neutral} />
+      <Stats type='Bad' value={bad} />
+    </div>
+  )
+}
+
+export default App
